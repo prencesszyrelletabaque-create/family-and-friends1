@@ -80,7 +80,7 @@ function speak(t,r,done){const my=tok;let fb=0;const tts=()=>{if(fb||my!==tok)re
  if(!AF)return tts();const a=new Audio(AF+slug(t)+'.mp3');curA=a;a.onerror=tts;a.onended=()=>{if(my===tok&&done)done()};a.play().catch(tts)}
 function say(t,r=.85){stopAll();speak(t,r)}
 function sayList(l){stopAll();const my=tok;(function nx(k){if(my!==tok||k>=l.length)return;const[id,t]=l[k];document.querySelectorAll('.hl').forEach(e=>e.classList.remove('hl'));const e=document.getElementById(id);e&&e.classList.add('hl');speak(t,.85,()=>nx(k+1))})(0)}
-const voiceUI=()=>`<label class="voice">🎙 Voice: <select id="vs"></select></label><p class="voice" id="vo"></p><p class="voice" id="fs"></p>`,bindVoice=()=>{showFS();const v=$('#vs');if(v)v.onchange=e=>{store.set('wq_voice',e.target.value);pickVoice();say('Hello! I am Teacher Ze.')};pickVoice()};
+const voiceUI=()=>'',bindVoice=()=>{showFS();const v=$('#vs');if(v)v.onchange=e=>{store.set('wq_voice',e.target.value);pickVoice();say('Hello! I am Teacher Ze.')};pickVoice()};
 function sound(l){stopAll();try{const a=new Audio(AUD[l]);curA=a;a.play().catch(()=>say(SND[l],.55))}catch(e){say(SND[l],.55)}}
 function hear(q){const w=q.listen[0];w[0]==='@'?sound(w[1]):say(...q.listen)}
 function burst(big){const a=big?['⭐','❄️','🎉','💎','🐉']:['⭐','❄️'];for(let k=0;k<(big?24:8);k++){const s=document.createElement('span');s.className='fx';s.textContent=a[k%a.length];s.style.left=Math.random()*90+'vw';s.style.top=40+Math.random()*40+'vh';document.body.appendChild(s);setTimeout(()=>s.remove(),1400)}}
